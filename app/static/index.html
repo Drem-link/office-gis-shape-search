@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Office GIS Search</title>
+  <style>
+    body { font-family: sans-serif; background: #0f172a; color: #e2e8f0; margin: 0; padding: 20px; }
+    .wrap { max-width: 1200px; margin: 0 auto; }
+    .toolbar { display: grid; grid-template-columns: repeat(4, minmax(160px, 1fr)); gap: 12px; margin-bottom: 20px; }
+    input, button { padding: 10px 12px; border-radius: 8px; border: 1px solid #334155; background: #111827; color: white; }
+    button { cursor: pointer; background: #2563eb; border: none; }
+    .items { display: grid; gap: 12px; }
+    .item { border: 1px solid #334155; border-radius: 12px; padding: 16px; background: #111827; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Office GIS Shape Search</h1>
+
+    <div class="toolbar">
+      <input id="q" placeholder="поиск" />
+      <input id="region" placeholder="регион" />
+      <input id="mineral" placeholder="минерал" />
+      <input id="category" placeholder="категория" />
+      <button id="searchBtn">Найти</button>
+    </div>
+
+    <div id="items" class="items"></div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
