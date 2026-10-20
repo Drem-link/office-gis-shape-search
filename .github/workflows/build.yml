@@ -1,4 +1,4 @@
-name: Build and push Office GIS image
+name: Build and push Office GIS images
 
 on:
   push:
@@ -6,14 +6,15 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Log in to GHCR
         uses: docker/login-action@v3
@@ -22,9 +23,18 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push
+      - name: Build backend image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./backend
+          file: ./backend/Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/office-gis:latest
+          tags: ghcr.io/${{ github.repository_owner }}/office-gis-backend:latest
+
+      - name: Build frontend image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          file: ./frontend/Dockerfile
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/office-gis-frontend:latest
